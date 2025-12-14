@@ -23,6 +23,11 @@
     - [x] Add Sound Effects (Optional)
     - [x] Playtesting with Oju (Manual verification) <!-- id: 9 -->
     - [x] Bug fixes and final polish <!-- id: 10 -->
-- [ ] 5. Deployment
-    - [ ] Choose Hosting (GitHub Pages / Netlify)
-    - [ ] Deploy and Share Link
+- [x] 5. Deployment
+    - [x] Choose Hosting (GitHub Pages / Netlify)
+    - [x] Deploy and Share Link
+
+- [ ] 6. Future Enhancements (Next Season)
+    - [ ] Social Features (Share results)
+    - [ ] Ranking System (Leaderboards)
+    - [ ] Competition Mode (Vs Friends)
