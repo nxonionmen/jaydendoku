@@ -1,0 +1,579 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f0f8ff;
+    font-family: 'Jua', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.game-container {
+    text-align: center;
+    padding: 20px;
+    max-width: 600px;
+    width: 100%;
+}
+
+.header-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.title {
+    color: #00BFFF;
+    font-size: 3rem;
+    margin: 0;
+    /* Removing bottom margin as it's handled by header-row */
+    text-shadow: 2px 2px 0px #fff;
+}
+
+.btn-sound {
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s;
+    padding: 5px;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-sound:hover {
+    transform: scale(1.1);
+}
+
+.btn-sound.muted {
+    filter: grayscale(1);
+    opacity: 0.7;
+}
+
+.size-controls {
+    margin-bottom: 20px;
+}
+
+.btn-size {
+    font-family: 'Jua', sans-serif;
+    font-size: 1rem;
+    padding: 5px 15px;
+    margin: 0 5px;
+    border: none;
+    background-color: #eee;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #333;
+}
+
+.btn-size.active {
+    background-color: #00BFFF;
+    color: #fff;
+    font-weight: bold;
+    transform: scale(1.1);
+}
+
+.sudoku-board {
+    display: grid;
+    width: fit-content;
+    height: auto;
+    margin: 0 auto 20px;
+    border: 4px solid #333;
+    background-color: #fff;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.cell {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: #00BFFF;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    position: relative;
+    user-select: none;
+}
+
+.cell.fixed {
+    color: #00008B;
+    cursor: default;
+}
+
+.cell.color-1 {
+    background-color: #FFD700;
+}
+
+.cell.color-2 {
+    background-color: #FF8C00;
+}
+
+.border-right-bold {
+    border-right: 3px solid #333 !important;
+}
+
+.border-bottom-bold {
+    border-bottom: 3px solid #333 !important;
+}
+
+.cell.selected {
+    background-color: #bbdefb !important;
+    border: 3px solid #1976d2 !important;
+    transform: scale(1.05);
+    z-index: 10;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.cell.error {
+    color: #d32f2f !important;
+    background-color: #ffcdd2 !important;
+    animation: shake 0.3s;
+}
+
+.cell.success {
+    color: #388e3c !important;
+    background-color: #c8e6c9 !important;
+}
+
+.note-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.note-num {
+    font-size: 8px;
+    color: #555;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+}
+
+.sudoku-board.size-4 .note-num {
+    font-size: 10px;
+}
+
+.sudoku-board.size-6 .note-num {
+    font-size: 9px;
+}
+
+/* --- 팝오버 키패드 UI --- */
+.input-controls {
+    position: absolute;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(5px);
+    border: 3px solid #00BFFF;
+    border-radius: 20px;
+    padding: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 280px;
+    /* 힌트 버튼 추가로 조금 넓게 */
+}
+
+.input-controls.visible {
+    display: flex;
+    animation: popUp 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #888;
+    padding: 0;
+    line-height: 1;
+}
+
+.btn-close:hover {
+    color: #d32f2f;
+    transform: scale(1.1);
+}
+
+.tools {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn-tool {
+    font-family: 'Jua', sans-serif;
+    font-size: 1rem;
+    padding: 8px 12px;
+    border: 2px solid #ccc;
+    background-color: white;
+    border-radius: 15px;
+    cursor: pointer;
+    color: #555;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.btn-tool.active {
+    background-color: #fff9c4;
+    border-color: #fbc02d;
+    color: #f57f17;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 0 #f9a825;
+}
+
+.btn-tool:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* 힌트 토글 전용 스타일 */
+#btn-hint-toggle.active {
+    background-color: #E8F5E9;
+    border-color: #4CAF50;
+    color: #2E7D32;
+    box-shadow: 0 3px 0 #388E3C;
+}
+
+.numpad {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-num {
+    width: 50px;
+    height: 50px;
+    font-family: 'Jua', sans-serif;
+    font-size: 1.5rem;
+    border: 2px solid #eee;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    color: #333;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.btn-num:hover {
+    background-color: #e3f2fd;
+    border-color: #2196f3;
+    transform: scale(1.1);
+}
+
+.btn-num:active {
+    transform: scale(0.95);
+}
+
+.btn {
+    font-family: 'Jua', sans-serif;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+#btn-easy {
+    background-color: #90EE90;
+    color: #006400;
+}
+
+#btn-hard {
+    background-color: #FF6347;
+    color: #fff;
+}
+
+.btn-print {
+    background-color: #87CEEB;
+    color: #000;
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+/* 모달 관련 스타일 */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    /* flex로 중앙 정렬 */
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal.hidden {
+    display: none !important;
+    /* !important로 확실히 가림 */
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    border: 5px solid #FFD700;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    min-width: 300px;
+}
+
+.modal-content h2 {
+    color: #FFD700;
+    font-size: 2.5rem;
+    margin: 0 0 10px 0;
+    text-shadow: 2px 2px 0 #333;
+}
+
+.modal-content p {
+    font-size: 1.5rem;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Main Controls */
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+#print-area {
+    display: none;
+}
+
+/* Modal Buttons */
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+#btn-restart {
+    background-color: #00BFFF;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 4px 0 #009ACD;
+}
+
+#btn-restart:active {
+    box-shadow: none;
+    transform: translateY(4px);
+}
+
+#btn-close-modal {
+    background-color: #eee;
+    color: #555;
+}
+
+@media print {
+    @page {
+        margin: 0;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: white;
+    }
+
+    .title,
+    .controls,
+    .size-controls,
+    #board,
+    .input-controls {
+        display: none !important;
+    }
+
+    /* Print Container with AUTO rows to pack content tightly */
+    .print-hidden {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(3, auto) !important;
+        gap: 15px;
+        width: 100%;
+        height: 100%;
+        padding: 10mm 5mm;
+        box-sizing: border-box;
+        page-break-after: always;
+        align-content: start;
+    }
+
+    /* 4x4 (12 Puzzles) */
+    .print-hidden.count-12 {
+        grid-template-columns: repeat(3, 1fr) !important;
+        grid-template-rows: repeat(4, auto) !important;
+        row-gap: 20px;
+        column-gap: 10px;
+    }
+
+    /* 6x6 Specific (Count 12, 3 Cols x 4 Rows) */
+    .print-hidden.p-size-6 {
+        grid-template-columns: repeat(3, 1fr) !important;
+        grid-template-rows: repeat(4, auto) !important;
+        column-gap: 15px;
+        row-gap: 15px;
+        /* Tighter vertical gap */
+        padding-top: 5mm;
+        /* Reduced top padding */
+        justify-content: center;
+    }
+
+    /* 9x9 Specific (Count 6, 2 Cols x 3 Rows) */
+    .print-hidden.p-size-9 {
+        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-rows: repeat(3, auto) !important;
+        column-gap: 30px;
+        row-gap: 30px;
+        /* Reduced vertical gap */
+        padding: 5mm;
+        /* Reduced padding */
+        justify-content: center;
+    }
+
+    .print-board-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        break-inside: avoid;
+    }
+
+    .print-board-container h3 {
+        margin: 0 0 5px 0;
+        font-size: 14px;
+        color: #000;
+    }
+
+    .sudoku-board {
+        border: 2px solid #000;
+        box-shadow: none;
+        margin: 0;
+    }
+
+    /* Cell Styles */
+    .cell {
+        width: 25px;
+        height: 25px;
+        color: #000 !important;
+        background-color: #fff !important;
+        border: 1px solid #777;
+        font-size: 13px;
+    }
+
+    .border-right-bold {
+        border-right: 2px solid #000 !important;
+    }
+
+    .border-bottom-bold {
+        border-bottom: 2px solid #000 !important;
+    }
+
+    .cell.fixed {
+        color: #000 !important;
+        font-weight: 900;
+        font-size: 15px;
+    }
+
+    /* 4x4 Size */
+    .sudoku-board.size-4 .cell {
+        width: 38px;
+        height: 38px;
+        font-size: 20px;
+    }
+
+    .sudoku-board.size-4 .cell.fixed {
+        font-size: 24px;
+    }
+
+    /* 6x6 Size */
+    .sudoku-board.size-6 .cell {
+        width: 31px;
+        /* Reduced from 35px to 31px */
+        height: 31px;
+        font-size: 18px;
+    }
+
+    .sudoku-board.size-6 .cell.fixed {
+        font-size: 21px;
+    }
+
+    /* 9x9 Size */
+    .sudoku-board.size-9 .cell {
+        width: 30px;
+        /* Reduced from 33px to 30px */
+        height: 30px;
+        font-size: 16px;
+    }
+
+    .sudoku-board.size-9 .cell.fixed {
+        font-size: 18px;
+    }
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    50% {
+        transform: translateX(5px);
+    }
+
+    75% {
+        transform: translateX(-5px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes popUp {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}

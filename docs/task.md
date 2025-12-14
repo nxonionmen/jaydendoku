@@ -1,0 +1,28 @@
+# Sudoku Game for Oju
+
+- [x] Project Initialization
+    - [x] Create project structure (HTML + CSS) <!-- id: 0 -->
+    - [x] Setup Basic Grid UI <!-- id: 1 -->
+- [x] 1. Planning with Jayden (Game Designer)
+    - [x] Explain "What is Planning?" <!-- id: 11 -->
+    - [x] Write Game Design Document together <!-- id: 12 -->
+    - [x] Draw the game screen (Paper or Digital) <!-- id: 13 -->
+- [x] 2. Core Logic Implementation
+    - [x] Sudoku board generation algorithm <!-- id: 2 -->
+    - [x] Validation logic (check rows, cols, squares) <!-- id: 3 -->
+    - [x] Difficulty levels (Easy, Hard) <!-- id: 4 -->
+- [x] UI/UX Design & Implementation
+    - [x] Basic layout and responsive design <!-- id: 5 -->
+    - [x] Grid Size Selection (4x4, 6x6, 9x9) <!-- id: 6 -->
+    - [x] Print Functionality (Optimized: 4x4, 6x6, 9x9) <!-- id: 14 -->
+    - [x] Number input interaction (Pop-up Keypad) <!-- id: 6 -->
+    - [x] Difficulty Refinement (Hint Mode added)
+    - [x] Win State (Success/Fail Modals) <!-- id: 7 -->
+    - [x] "Kid-friendly" theme (colors, animations) <!-- id: 8 -->
+- [x] 4. Verification & Polish
+    - [x] Add Sound Effects (Optional)
+    - [x] Playtesting with Oju (Manual verification) <!-- id: 9 -->
+    - [x] Bug fixes and final polish <!-- id: 10 -->
+- [ ] 5. Deployment
+    - [ ] Choose Hosting (GitHub Pages / Netlify)
+    - [ ] Deploy and Share Link

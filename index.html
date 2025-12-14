@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jayden's Sudoku</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="game-container">
+        <div class="header-row">
+            <h1 class="title">JAYDEN SUDOKU</h1>
+            <button id="btn-sound-toggle" class="btn-sound" title="소리 켜기/끄기">🔊</button>
+        </div>
+
+        <div class="size-controls">
+            <span>크기 선택: </span>
+            <button class="btn btn-size active" data-size="4">4x4</button>
+            <button class="btn btn-size" data-size="6">6x6</button>
+            <button class="btn btn-size" data-size="9">9x9</button>
+        </div>
+
+        <div id="board" class="sudoku-board">
+            <!-- 자바스크립트로 여기에 칸을 81개 만들 거예요! -->
+        </div>
+
+        <!-- 숫자 입력 키패드 (팝오버 형태 for Contextual UI) -->
+        <div class="input-controls">
+            <button id="btn-close-pad" class="btn-close" title="닫기">❌</button>
+            <div class="tools">
+                <button id="btn-memo" class="btn-tool" title="후보 숫자 적기">✏️ 메모</button>
+                <button id="btn-hint-toggle" class="btn-tool" title="틀린 숫자 알려주기">💡 힌트</button>
+                <button id="btn-erase" class="btn-tool" title="지우기">🗑️ 지우기</button>
+            </div>
+            <div class="numpad" id="numpad">
+                <!-- JS로 1~9 생성 -->
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="btn-easy" class="btn">쉬움 (Easy)</button>
+            <button id="btn-hard" class="btn">어려움 (Hard)</button>
+            <button id="btn-main-restart" class="btn">🔄 다시 하기</button>
+            <button id="btn-print" class="btn btn-print">🖨️ 인쇄</button>
+        </div>
+        <!-- 인쇄용 영역 (평소엔 숨김) -->
+        <div id="print-area" class="print-hidden"></div>
+    </div>
+
+    <!-- 게임 결과 모달 -->
+    <div id="game-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2 id="modal-title">Did you win?</h2>
+            <p id="modal-message">Message goes here</p>
+            <div id="modal-confetti" class="confetti-area"></div>
+            <div class="modal-buttons">
+                <button id="btn-restart" class="btn">🔄 다시 하기</button>
+                <button id="btn-close-modal" class="btn">닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
